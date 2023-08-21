@@ -35,7 +35,9 @@ class ChatGPTCall:
 
     def predict(self, dataset: pd.DataFrame) -> list[str]:
         chatgpt_outputs = []
-        for clinical_note in tqdm(dataset["text"]):
+        for hadm_id, subject_id, clinical_note in tqdm(
+            dataset[["hadm_id", "subject_id", "text"]].values
+        ):
             chatgpt_input = self.set_input(clinical_note)
             response = openai.ChatCompletion.create(
                 messages=chatgpt_input, **self.configs.model_configs.dict()
@@ -43,7 +45,13 @@ class ChatGPTCall:
 
             chatgpt_output = response["choices"][0]["message"]["content"]
             chatgpt_output = self.parse_output(chatgpt_output)
-            chatgpt_outputs += [chatgpt_output]
+            chatgpt_outputs += [
+                {
+                    "hadm_id": hadm_id,
+                    "subject_id": subject_id,
+                    "prediction": chatgpt_output,
+                }
+            ]
 
         with open(os.path.join(self.outputs_dir, "predictions.json"), "w") as json_file:
             json.dump(chatgpt_outputs, json_file)
