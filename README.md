@@ -1,16 +1,16 @@
+<!-- omit in toc -->
 # ICD Coding using ChatGPT
 
 This repository contains the code to predict ICD-10 codes from clinical notes using ChatGPT
 
 <!-- omit in toc -->
 ## Table of Contents
-- [ICD Coding using ChatGPT](#icd-coding-using-chatgpt)
-  - [🛠️ Setup](#️-setup)
-    - [Cloning the codebase](#cloning-the-codebase)
-    - [Python packages](#python-packages)
-    - [Environment variables](#environment-variables)
-  - [💾 Dataset](#-dataset)
-  - [🤖 Inference](#-inference)
+- [🛠️ Setup](#️-setup)
+  - [Cloning the codebase](#cloning-the-codebase)
+  - [Python packages](#python-packages)
+  - [Environment variables](#environment-variables)
+- [💾 Dataset](#-dataset)
+- [🤖 Inference](#-inference)
 
 ## 🛠️ Setup
 ### Cloning the codebase
