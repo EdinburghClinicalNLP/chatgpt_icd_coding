@@ -1,0 +1,24 @@
+name: chatgpt_icd_coding
+channels:
+  - defaults
+  - conda-forge
+  - pyg
+dependencies:
+  - python=3.10
+  - pillow
+  - setproctitle
+  - pip
+  - tqdm
+  - python-dotenv
+  - pydantic
+  - nltk
+  - black
+  - scikit-learn
+  - sentencepiece
+  - wandb
+  - isort
+  - ipykernel
+  - pandas
+  - jupyter
+  - matplotlib
+  - openai
