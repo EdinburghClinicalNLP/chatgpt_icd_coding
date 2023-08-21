@@ -1,0 +1,18 @@
+training_configs:
+  dataset_path: "data/disch_raw_test_split.csv"
+  random_seed: 1234
+  num_process: 8
+  outputs_dir: "outputs/"
+model_configs:
+  temperature: 0
+  top_p: 0
+  max_tokens: 800
+  frequency_penalty: 0
+  presence_penalty: 0
+  stop: null
+  engine: "chatgpt_icd_coding"  #gpt-3.5-turbo-0613
+prompt_configs:
+  system_prompt: "You are a clinician and your task is to assign diagnoses and the associated ICD-10 clinical codes to a given clinical note. You should output an array of JSON objects containing the diagnosis name and the ICD-10 code, structured as diagnosis and icd_code."
+  user_prompt: ""
+api_configs:
+  api_version: "2023-03-15-preview"
