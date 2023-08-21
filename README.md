@@ -68,7 +68,7 @@ Certainly, you don't have to use `nano`, as long as the file name (`env/.env`) r
 ## 🤖 Inference
 
 ```
-python scripts/evaluate.py --config_filepath configs/deterministic_chatgpt_mimic_iv_coding_system_user.yaml
+python scripts/inference.py --config_filepath configs/deterministic_chatgpt_mimic_iv_coding_system_user.yaml
 ```
 
 **To be completed**
