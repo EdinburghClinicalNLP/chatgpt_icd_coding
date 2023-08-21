@@ -14,8 +14,6 @@ dependencies:
   - nltk
   - black
   - scikit-learn
-  - sentencepiece
-  - wandb
   - isort
   - ipykernel
   - pandas

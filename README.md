@@ -32,7 +32,6 @@ This codebase requires multiple dependencies.
 - black
 - isort
 - tqdm
-- wandb
 - pandas
 - matplotlib
 - scikit-learn
@@ -49,9 +48,6 @@ conda activate chatgpt_icd_coding
 
 There are multiple environment variables required to run the training:
 
-- **WANDB_API_KEY**: The authorisation key to access your WandB projects.
-- **WANDB_PROJECT_NAME**: The name that you like for this project.
-- **WANDB_ENTITY**: The WandB entity that will host the project.
 - **AZURE_OPENAI_KEY**: The key to access the OpenAI deployment on Azure.
 - **AZURE_OPENAI_ENDPOINT**: The endpoint URL to access the exact OpenAI deployment on Azure.
 
