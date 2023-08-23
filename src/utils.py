@@ -56,7 +56,8 @@ def setup_experiment_folder(outputs_dir: str) -> Tuple[str, str]:
     """
     now = datetime.now().strftime("%Y_%m_%d__%H_%M_%S")
     outputs_dir = os.path.join(outputs_dir, now)
-    os.makedirs(outputs_dir, exist_ok=True)
+    predictions_dir = os.path.join(outputs_dir, "predictions")
+    os.makedirs(predictions_dir, exist_ok=True)
 
     return outputs_dir
 

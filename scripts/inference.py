@@ -48,6 +48,8 @@ def main():
 
     chatgpt_outputs = chatgpt_api.predict(dataset)
 
+    print("Prediction finished!")
+
 
 if __name__ == "__main__":
     main()
