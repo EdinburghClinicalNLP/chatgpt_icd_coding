@@ -16,6 +16,11 @@ class ChatGPTCall:
     def __init__(self, configs: Configs, outputs_dir: str):
         self.configs = configs
         self.outputs_dir = outputs_dir
+        self.predictions_dir = os.path.join(self.outputs_dir, "predictions")
+
+        self.predicted_notes = self._set_predicted_notes()
+        print(f"Found {len(self.predicted_notes)} predicted notes")
+
         self.encoding = tiktoken.encoding_for_model("gpt-3.5-turbo-0613")
 
         self.system_prompt = self.configs.prompt_configs.system_prompt
@@ -25,6 +30,15 @@ class ChatGPTCall:
         self.truncation_length = (
             4096 - self.system_prompt_length - self.max_tokens - 15
         )  # 15 possible differences
+
+    def _set_predicted_notes(self) -> set:
+        predicted_notes = []
+
+        for note_id in os.listdir(self.predictions_dir):
+            subject_id_hadm_id = note_id.replace(".json", "")
+            predicted_notes += [subject_id_hadm_id]
+
+        return set(predicted_notes)
 
     def truncate_text_tokens(self, clinical_note) -> tuple[str, int]:
         """
@@ -66,6 +80,9 @@ class ChatGPTCall:
         for hadm_id, subject_id, clinical_note in tqdm(
             dataset[["hadm_id", "subject_id", "text"]].values
         ):
+            if f"{subject_id}_{hadm_id}" in self.predicted_notes:
+                continue
+
             chatgpt_input, original_prompt_length = self.set_input(clinical_note)
             try:
                 response = openai.ChatCompletion.create(

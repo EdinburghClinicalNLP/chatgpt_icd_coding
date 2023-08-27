@@ -18,22 +18,26 @@ from src.configs import Configs
 def parse_configs() -> Configs:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_filepath", type=str, required=True)
+    parser.add_argument("--existing_output_dir", type=str)
     args = parser.parse_args()
     configs = Configs(**utils.load_yaml(args.config_filepath))
 
-    return configs
+    return configs, args
 
 
 def main():
-    configs = parse_configs()
+    configs, args = parse_configs()
 
     utils.setup_random_seed(configs.training_configs.random_seed)
 
-    # Setup experiment folder to store config file used for the API call and the predictions
-    outputs_dir = utils.setup_experiment_folder(
-        os.path.join(os.getcwd(), configs.training_configs.outputs_dir)
-    )
-    utils.save_training_configs(configs, outputs_dir)
+    if not args.existing_output_dir:
+        # Setup experiment folder to store config file used for the API call and the predictions
+        outputs_dir = utils.setup_experiment_folder(
+            os.path.join(os.getcwd(), configs.training_configs.outputs_dir)
+        )
+        utils.save_training_configs(configs, outputs_dir)
+    else:
+        outputs_dir = args.existing_output_dir
 
     # Setup OpenAI API configs
     openai.api_type = "azure"
