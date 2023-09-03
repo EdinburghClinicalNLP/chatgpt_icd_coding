@@ -16,7 +16,7 @@ This repository contains the code to predict ICD-10 codes from clinical notes us
 ### Cloning the codebase
 
 ```
-git clone https://github.com/aryopg/chatgpt_icd_coding.git
+git clone --recurse-submodules https://github.com/aryopg/chatgpt_icd_coding.git
 ```
 
 ### Python packages

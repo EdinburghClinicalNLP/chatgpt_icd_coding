@@ -1,0 +1,3 @@
+[submodule "submodules/CoPHE"]
+	path = submodules/CoPHE
+	url = https://github.com/modr00cka/CoPHE
