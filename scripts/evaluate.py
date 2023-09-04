@@ -1,6 +1,7 @@
 import argparse
 import gc
 import json
+import logging
 import os
 import re
 import sys
@@ -16,6 +17,12 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from tqdm import tqdm
 
 from submodules.CoPHE.scripts import evaluation_setup, multi_level_eval
+
+logging.basicConfig(
+    level=logging.INFO,  # Set the logging level (e.g., INFO, DEBUG, ERROR)
+    format="%(asctime)s [%(levelname)s] - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
 def parse_args():
@@ -164,7 +171,7 @@ def retrieve_chapter(code_with_etiology):
     elif char1 == "U":
         return "XXII"
     else:
-        print(f"{code} ERROR: {code_with_etiology}")
+        logging.info(f"{code} ERROR: {code_with_etiology}")
         return "ERROR"
 
 
@@ -206,7 +213,7 @@ def main():
         "submodules/CoPHE/ICD10/icd10_graph_desc.json"
     )
 
-    print(f"Initial size of icd10 mapping: {len(translation_dict_icd10.keys())}")
+    logging.info(f"Initial size of icd10 mapping: {len(translation_dict_icd10.keys())}")
 
     errors = {"parsing_error": [], "no_parsing_error": []}
 
@@ -223,9 +230,9 @@ def main():
                 else:
                     errors["no_parsing_error"] += [code[:3]]
 
-    print("Hallucinated codes")
-    print(f"With Parsing Error: {len(errors['parsing_error'])}")
-    print(f"Without Parsing Error: {len(errors['no_parsing_error'])}")
+    logging.info("Hallucinated codes")
+    logging.info(f"With Parsing Error: {len(errors['parsing_error'])}")
+    logging.info(f"Without Parsing Error: {len(errors['no_parsing_error'])}")
 
     fake_codes = dict()
     for error in errors["parsing_error"] + errors["no_parsing_error"]:
@@ -245,7 +252,7 @@ def main():
     # resolving ontology errors
     slack_codes = dict()
     for error in ontology_errors:
-        # print(error)
+        # logging.info(error)
         unseen_code_data = prep_unseen_code(error)
         slack_codes[error] = unseen_code_data
     translation_dict_icd10.update(slack_codes)
@@ -265,7 +272,7 @@ def main():
         slack_codes[error] = unseen_code_data
     translation_dict_icd10.update(slack_codes)
 
-    print(f"Updated size of icd10 mapping: {len(translation_dict_icd10.keys())}")
+    logging.info(f"Updated size of icd10 mapping: {len(translation_dict_icd10.keys())}")
 
     predictions_df = pd.DataFrame(predictions)
 
@@ -293,13 +300,13 @@ def main():
     del predictions_df
     gc.collect()
 
-    # print("MICRO REPORT ON LEAVES:")
-    # print(multi_level_eval.report_micro(y_true_multihot, y_pred_multihot))
-    # print()
-    # print("MACRO REPORT ON LEAVES:")
-    # print(multi_level_eval.report_macro(y_true_multihot, y_pred_multihot))
-    # print()
-    print("HIERACHICAL MICRO REPORT ON LEAVES:")
+    logging.info("MICRO REPORT ON LEAVES:")
+    logging.info(multi_level_eval.report_micro(y_true_multihot, y_pred_multihot))
+    logging.info()
+    logging.info("MACRO REPORT ON LEAVES:")
+    logging.info(multi_level_eval.report_macro(y_true_multihot, y_pred_multihot))
+    logging.info()
+    logging.info("HIERACHICAL MICRO REPORT ON LEAVES:")
     multi_level_eval.hierarchical_evaluation(
         y_true_multihot,
         y_pred_multihot,
