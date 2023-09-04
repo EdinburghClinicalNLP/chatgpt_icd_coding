@@ -38,9 +38,9 @@ This codebase requires multiple dependencies.
 ```
 </details>
 
-We opted in to using conda as our package manager. The following will install the necessary dependencies:
+We opted to use conda as our package manager. The following will install the necessary dependencies:
 ```
-conda env create -f environment.yml
+conda env create -f environment.yaml
 conda activate chatgpt_icd_coding
 ```
 
@@ -59,7 +59,7 @@ nano env/.env
 ```
 
 Write down all of the mentioned environment variables with the appropriate values inside that file.
-Certainly, you don't have to use `nano`, as long as the file name (`env/.env`) remain the same.
+Certainly, you don't have to use `nano`, as long as the file name (`env/.env`) remains the same.
 
 ## 💾 Dataset
 
