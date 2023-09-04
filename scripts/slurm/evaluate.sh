@@ -38,7 +38,7 @@ mkdir -p ${dest_path}  # make it if required
 rsync --archive --update --compress --progress ${src_path}/ ${dest_path}
 
 echo "Running experiment"
-python scripts/evaluate.py --predictions_dir outputs/2023_08_25__09_19_37/predictions --groundtruth_path data/disch_raw_test_split.csv
+python scripts/evaluate.py --predictions_dir $1 --groundtruth_path $2
 
 echo ""
 echo "============"
