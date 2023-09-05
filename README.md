@@ -11,6 +11,7 @@ This repository contains the code to predict ICD-10 codes from clinical notes us
   - [Environment variables](#environment-variables)
 - [💾 Dataset](#-dataset)
 - [🤖 Inference](#-inference)
+- [🔬 Evaluation](#-evaluation)
 
 ## 🛠️ Setup
 ### Cloning the codebase
